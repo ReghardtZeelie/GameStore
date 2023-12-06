@@ -1,0 +1,92 @@
+2023-12-06 07:26:57.798 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-06 07:26:58.303 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-06 07:26:58.303 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-06 07:26:58.309 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-06 07:26:58.310 +02:00  INF  Hosting environment: Development
+2023-12-06 07:26:58.310 +02:00  INF  Content root path: D:\DHC\Downloads\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\
+2023-12-06 07:26:59.377 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-06 07:26:59.988 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 618.9248ms
+2023-12-06 07:27:00.032 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-06 07:27:00.032 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-06 07:27:00.042 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 12040 application/javascript;+charset=utf-8 8.6124ms
+2023-12-06 07:27:00.109 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 77.0310ms
+2023-12-06 07:27:00.256 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-06 07:27:00.451 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 195.0658ms
+2023-12-06 07:35:46.015 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/AddUser application/json 124
+2023-12-06 07:35:46.029 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:35:46.083 +02:00  INF  Route matched with {action = "AddUser", controller = "AddUser"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddUser(Models.AddUserModel) on controller JWTLoginAuthenticationAuthorization.Controllers.AddUserController (JWTLoginAuthenticationAuthorization).
+2023-12-06 07:35:59.184 +02:00  INF  Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2023-12-06 07:35:59.224 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization) in 13132.3558ms
+2023-12-06 07:35:59.229 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:35:59.229 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/AddUser application/json 124 - 400 - application/json;+charset=utf-8 13214.5765ms
+2023-12-06 07:36:11.230 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/AddUser application/json 133
+2023-12-06 07:36:11.232 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:36:11.232 +02:00  INF  Route matched with {action = "AddUser", controller = "AddUser"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddUser(Models.AddUserModel) on controller JWTLoginAuthenticationAuthorization.Controllers.AddUserController (JWTLoginAuthenticationAuthorization).
+2023-12-06 07:38:09.445 +02:00  INF  Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2023-12-06 07:38:09.445 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization) in 118212.9954ms
+2023-12-06 07:38:09.445 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:38:09.446 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/AddUser application/json 133 - 400 - application/json;+charset=utf-8 118215.3165ms
+2023-12-06 07:40:18.433 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/AddUser application/json 119
+2023-12-06 07:40:18.438 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:18.440 +02:00  INF  Route matched with {action = "AddUser", controller = "AddUser"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddUser(Models.AddUserModel) on controller JWTLoginAuthenticationAuthorization.Controllers.AddUserController (JWTLoginAuthenticationAuthorization).
+2023-12-06 07:40:23.251 +02:00  INF  Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.SerializableError'.
+2023-12-06 07:40:23.252 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization) in 4812.0312ms
+2023-12-06 07:40:23.252 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:23.253 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/AddUser application/json 119 - 400 - application/json;+charset=utf-8 4822.9353ms
+2023-12-06 07:40:31.102 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/AddUser application/json 123
+2023-12-06 07:40:31.103 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:31.105 +02:00  INF  Route matched with {action = "AddUser", controller = "AddUser"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddUser(Models.AddUserModel) on controller JWTLoginAuthenticationAuthorization.Controllers.AddUserController (JWTLoginAuthenticationAuthorization).
+2023-12-06 07:40:31.149 +02:00  INF  Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2023-12-06 07:40:31.162 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization) in 56.8837ms
+2023-12-06 07:40:31.162 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:31.163 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/AddUser application/json 123 - 400 - application/problem+json;+charset=utf-8 60.3328ms
+2023-12-06 07:40:38.336 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/AddUser application/json 123
+2023-12-06 07:40:38.338 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:38.338 +02:00  INF  Route matched with {action = "AddUser", controller = "AddUser"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddUser(Models.AddUserModel) on controller JWTLoginAuthenticationAuthorization.Controllers.AddUserController (JWTLoginAuthenticationAuthorization).
+2023-12-06 07:40:38.339 +02:00  INF  Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2023-12-06 07:40:38.340 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization) in 1.5795ms
+2023-12-06 07:40:38.340 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.AddUserController.AddUser (JWTLoginAuthenticationAuthorization)'
+2023-12-06 07:40:38.340 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/AddUser application/json 123 - 400 - application/problem+json;+charset=utf-8 3.6268ms
+2023-12-06 08:43:17.423 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-06 08:43:17.988 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-06 08:43:17.988 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-06 08:43:17.995 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-06 08:43:17.995 +02:00  INF  Hosting environment: Development
+2023-12-06 08:43:17.996 +02:00  INF  Content root path: C:\Users\regha\source\repos\ReghardtZeelie\GameStore\JWTLoginAuthenticationAuthorization\
+2023-12-06 08:43:21.879 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-06 08:43:22.963 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 1092.8365ms
+2023-12-06 08:43:23.011 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-06 08:43:23.034 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 23.5481ms
+2023-12-06 08:43:23.147 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-06 08:43:23.249 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 102.0092ms
+2023-12-06 08:43:23.401 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-06 08:43:23.586 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 185.3601ms
+2023-12-06 08:43:35.979 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/Login application/json 45
+2023-12-06 08:43:35.995 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (GameStore)'
+2023-12-06 08:43:36.189 +02:00  INF  Route matched with {action = "Login", controller = "Login"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login(Models.LoginModel) on controller JWTLoginAuthenticationAuthorization.Controllers.LoginController (GameStore).
+2023-12-06 08:43:37.578 +02:00  INF  New token generated for user: Reghardt
+2023-12-06 08:43:37.595 +02:00  INF  Executing OkObjectResult, writing value of type 'System.String'.
+2023-12-06 08:43:37.606 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (GameStore) in 1405.8742ms
+2023-12-06 08:43:37.610 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (GameStore)'
+2023-12-06 08:43:37.611 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/Login application/json 45 - 200 - text/plain;+charset=utf-8 1631.2582ms
+2023-12-06 08:43:48.392 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/Item?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IlJlZ2hhcmR0IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZGF0ZW9mYmlydGgiOiIwMS8wMS8wMDAxIDAwOjAwOjAwIiwiZXhwIjoxNzAxODQ1MzE3LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTI4IiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzEyOCJ9.V68OPrzqEhlF_pgJg1ZmeFQLFXVQHIiHbyaPP2owgY8 application/json 126
+2023-12-06 08:43:48.394 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.ItemController.AddNewitem (GameStore)'
+2023-12-06 08:43:48.398 +02:00  INF  Route matched with {action = "AddNewitem", controller = "Item"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult AddNewitem(Models.ItemsModel, System.String) on controller JWTLoginAuthenticationAuthorization.Controllers.ItemController (GameStore).
+2023-12-06 08:43:48.567 +02:00  INF  Executing StatusCodeResult, setting HTTP status code 200
+2023-12-06 08:43:48.569 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.ItemController.AddNewitem (GameStore) in 170.265ms
+2023-12-06 08:43:48.569 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.ItemController.AddNewitem (GameStore)'
+2023-12-06 08:43:48.569 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/Item?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IlJlZ2hhcmR0IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZGF0ZW9mYmlydGgiOiIwMS8wMS8wMDAxIDAwOjAwOjAwIiwiZXhwIjoxNzAxODQ1MzE3LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTI4IiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzEyOCJ9.V68OPrzqEhlF_pgJg1ZmeFQLFXVQHIiHbyaPP2owgY8 application/json 126 - 200 0 - 177.4899ms
+2023-12-06 08:52:07.756 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-06 08:52:08.300 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-06 08:52:08.300 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-06 08:52:08.308 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-06 08:52:08.309 +02:00  INF  Hosting environment: Development
+2023-12-06 08:52:08.309 +02:00  INF  Content root path: C:\Users\regha\source\repos\ReghardtZeelie\GameStore\JWTLoginAuthenticationAuthorization\
+2023-12-06 08:52:09.600 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-06 08:52:10.946 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 1357.6045ms
+2023-12-06 08:52:11.048 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-06 08:52:11.048 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-06 08:52:11.071 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 22.9616ms
+2023-12-06 08:52:11.328 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 280.5498ms
+2023-12-06 08:52:11.515 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-06 08:52:11.849 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 334.3888ms

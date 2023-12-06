@@ -1,0 +1,88 @@
+2023-12-04 20:09:48.709 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-04 20:09:49.177 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-04 20:09:49.178 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-04 20:09:49.189 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-04 20:09:49.190 +02:00  INF  Hosting environment: Development
+2023-12-04 20:09:49.190 +02:00  INF  Content root path: D:\DHC\Downloads\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\
+2023-12-04 20:09:50.106 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-04 20:09:50.809 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 712.2661ms
+2023-12-04 20:09:50.847 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-04 20:09:50.847 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-04 20:09:50.859 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 12040 application/javascript;+charset=utf-8 12.0985ms
+2023-12-04 20:09:51.048 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 201.4118ms
+2023-12-04 20:09:51.260 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-04 20:09:51.458 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 197.6620ms
+2023-12-04 20:10:26.883 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/Login application/json 42
+2023-12-04 20:10:26.988 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (JWTLoginAuthenticationAuthorization)'
+2023-12-04 20:10:27.057 +02:00  INF  Route matched with {action = "Login", controller = "Login"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login(Models.LoginModel) on controller JWTLoginAuthenticationAuthorization.Controllers.LoginController (JWTLoginAuthenticationAuthorization).
+2023-12-04 20:10:27.135 +02:00  INF  Seri Log is Working
+2023-12-04 20:19:17.021 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-04 20:19:17.372 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-04 20:19:17.372 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-04 20:19:17.383 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-04 20:19:17.397 +02:00  INF  Hosting environment: Development
+2023-12-04 20:19:17.397 +02:00  INF  Content root path: D:\DHC\Downloads\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\
+2023-12-04 20:19:19.187 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-04 20:19:20.160 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 985.8568ms
+2023-12-04 20:19:20.192 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-04 20:19:20.192 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-04 20:19:20.201 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 12040 application/javascript;+charset=utf-8 8.9348ms
+2023-12-04 20:19:20.262 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 70.3586ms
+2023-12-04 20:19:20.378 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-04 20:19:20.543 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 165.6523ms
+2023-12-04 20:19:34.739 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-04 20:19:35.058 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-04 20:19:35.058 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-04 20:19:35.064 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-04 20:19:35.064 +02:00  INF  Hosting environment: Development
+2023-12-04 20:19:35.064 +02:00  INF  Content root path: D:\DHC\Downloads\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\
+2023-12-04 20:19:37.356 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-04 20:19:38.203 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 865.3735ms
+2023-12-04 20:19:38.245 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-04 20:19:38.245 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-04 20:19:38.260 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 12040 application/javascript;+charset=utf-8 14.5118ms
+2023-12-04 20:19:38.349 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 103.9322ms
+2023-12-04 20:19:38.445 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-04 20:19:38.686 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 240.9673ms
+2023-12-04 20:19:48.126 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/Login application/json 42
+2023-12-04 20:19:48.254 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (JWTLoginAuthenticationAuthorization)'
+2023-12-04 20:19:48.327 +02:00  INF  Route matched with {action = "Login", controller = "Login"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login(Models.LoginModel) on controller JWTLoginAuthenticationAuthorization.Controllers.LoginController (JWTLoginAuthenticationAuthorization).
+2023-12-04 20:19:48.425 +02:00  INF  Seri Log is Working
+2023-12-04 20:25:07.116 +02:00  INF  User profile is available. Using 'C:\Users\regha\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-04 20:25:07.506 +02:00  INF  Now listening on: https://localhost:7128
+2023-12-04 20:25:07.506 +02:00  INF  Now listening on: http://localhost:5128
+2023-12-04 20:25:07.512 +02:00  INF  Application started. Press Ctrl+C to shut down.
+2023-12-04 20:25:07.513 +02:00  INF  Hosting environment: Development
+2023-12-04 20:25:07.513 +02:00  INF  Content root path: D:\DHC\Downloads\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\JWTLoginAuthenticationAuthorization\
+2023-12-04 20:25:09.541 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/index.html - -
+2023-12-04 20:25:10.419 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/index.html - - - 200 - text/html;charset=utf-8 887.4215ms
+2023-12-04 20:25:10.450 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_vs/browserLink - -
+2023-12-04 20:25:10.451 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - -
+2023-12-04 20:25:10.461 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_framework/aspnetcore-browser-refresh.js - - - 200 12040 application/javascript;+charset=utf-8 10.3423ms
+2023-12-04 20:25:10.532 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 81.3626ms
+2023-12-04 20:25:10.643 +02:00  INF  Request starting HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - -
+2023-12-04 20:25:11.056 +02:00  INF  Request finished HTTP/2 GET https://localhost:7128/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 413.6221ms
+2023-12-04 20:25:20.317 +02:00  INF  Request starting HTTP/2 POST https://localhost:7128/api/Login application/json 42
+2023-12-04 20:25:20.414 +02:00  INF  Executing endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (JWTLoginAuthenticationAuthorization)'
+2023-12-04 20:25:20.488 +02:00  INF  Route matched with {action = "Login", controller = "Login"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login(Models.LoginModel) on controller JWTLoginAuthenticationAuthorization.Controllers.LoginController (JWTLoginAuthenticationAuthorization).
+2023-12-04 20:25:20.504 +02:00  INF  Executed action JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (JWTLoginAuthenticationAuthorization) in 4.4885ms
+2023-12-04 20:25:20.510 +02:00  INF  Executed endpoint 'JWTLoginAuthenticationAuthorization.Controllers.LoginController.Login (JWTLoginAuthenticationAuthorization)'
+2023-12-04 20:25:20.517 +02:00  ERR  An unhandled exception has occurred while executing the request.System.InvalidOperationException: Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[DAL.UsersDAL]' while attempting to activate 'JWTLoginAuthenticationAuthorization.Controllers.LoginController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method3(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass7_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+
+2023-12-04 20:25:20.564 +02:00  INF  Request finished HTTP/2 POST https://localhost:7128/api/Login application/json 42 - 500 - text/plain;+charset=utf-8 247.2775ms
