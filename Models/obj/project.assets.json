@@ -16,11 +16,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\regha\\source\\repos\\ReghardtZeelie\\GameStore\\Models\\Models.csproj",
+      "projectUniqueName": "C:\\Users\\regha\\source\\ReghardtZeelie\\GameStore\\Models\\Models.csproj",
       "projectName": "Models",
-      "projectPath": "C:\\Users\\regha\\source\\repos\\ReghardtZeelie\\GameStore\\Models\\Models.csproj",
+      "projectPath": "C:\\Users\\regha\\source\\ReghardtZeelie\\GameStore\\Models\\Models.csproj",
       "packagesPath": "C:\\Users\\regha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\regha\\source\\repos\\ReghardtZeelie\\GameStore\\Models\\obj\\",
+      "outputPath": "C:\\Users\\regha\\Source\\ReghardtZeelie\\GameStore\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
