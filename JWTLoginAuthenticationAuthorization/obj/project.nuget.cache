@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JFFCvqMRAs85jp6iDBSg5muOKrlBF7jFV2xG8jaqcT2nSAB6XpSEI7W87+HmZz66cIWretPPEii97aAPIphT5w==",
+  "dgSpecHash": "g9SYCQC2k6LDQZRjLhQ0l8z/mOqJ16+SBgaE41u06C6aSvDSiEYC2uI1yaqY/tl7z2nlqkXmqTujCcXQJoZKpA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\regha\\source\\repos\\ReghardtZeelie\\GameStore\\JWTLoginAuthenticationAuthorization\\GameStore.csproj",
+  "projectFilePath": "C:\\Users\\regha\\source\\ReghardtZeelie\\GameStore\\JWTLoginAuthenticationAuthorization\\GameStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\regha\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\regha\\.nuget\\packages\\azure.identity\\1.8.0\\azure.identity.1.8.0.nupkg.sha512",
