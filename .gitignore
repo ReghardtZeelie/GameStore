@@ -231,3 +231,25 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/.vs/GameStore/v17/.suo
+/DAL/obj/Debug/net6.0/DAL.csproj.AssemblyReference.cache
+/DAL/obj/Debug/net6.0/DAL.csproj.CoreCompileInputs.cache
+/DAL/obj/Debug/net6.0/DAL.csproj.FileListAbsolute.txt
+/DAL/obj/Debug/net6.0/DAL.dll
+/DAL/obj/Debug/net6.0/DAL.pdb
+/DAL/obj/DAL.csproj.nuget.dgspec.json
+/DAL/obj/project.nuget.cache
+/JWTLoginAuthenticationAuthorization/bin/Debug/net6.0/DAL.dll
+/JWTLoginAuthenticationAuthorization/bin/Debug/net6.0/DAL.pdb
+/JWTLoginAuthenticationAuthorization/bin/Debug/net6.0/GameStore.dll
+/JWTLoginAuthenticationAuthorization/bin/Debug/net6.0/GameStore.pdb
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.csproj.AssemblyReference.cache
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.csproj.CoreCompileInputs.cache
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.csproj.FileListAbsolute.txt
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.dll
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.genruntimeconfig.cache
+/JWTLoginAuthenticationAuthorization/obj/Debug/net6.0/GameStore.pdb
+/JWTLoginAuthenticationAuthorization/obj/GameStore.csproj.nuget.dgspec.json
+/JWTLoginAuthenticationAuthorization/obj/project.nuget.cache
+/Models/obj/Models.csproj.nuget.dgspec.json
+/Models/obj/project.nuget.cache
