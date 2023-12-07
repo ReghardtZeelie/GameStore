@@ -28,7 +28,7 @@ namespace JWTLoginAuthenticationAuthorization
                  token = new JwtSecurityToken(_config["Jwt:Issuer"],
                     _config["Jwt:Audience"],
                     claims,
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddMinutes(Convert.ToDouble(_config["TokenSettings:Timeout"])),
                     signingCredentials: credentials);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }

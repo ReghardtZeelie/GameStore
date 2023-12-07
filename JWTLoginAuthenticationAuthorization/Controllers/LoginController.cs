@@ -59,8 +59,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 return Ok(token);
             }
 
-            _logger.LogInformation("user not found");
-            return Unauthorized("user not found");
+            _logger.LogInformation("Authentication failed for: "+ User.Name + "");
+            return Unauthorized("Authentication failed for: " + User.Name + "");
         }
 
         private bool validateUserLogin(LoginModel User, ref string Log)
