@@ -8,7 +8,7 @@ namespace Models
 {
     public class cartItemsModel
     {
-        
+        public int ItemCode { get; set; }
         public string ItemName { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]

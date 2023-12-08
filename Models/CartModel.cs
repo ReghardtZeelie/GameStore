@@ -1,10 +1,11 @@
 ﻿
-using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
     public class CartModel
     {
+        
         [System.Text.Json.Serialization.JsonIgnore]
         public int CartId { get; set; }
         public int UserID { get; set; }

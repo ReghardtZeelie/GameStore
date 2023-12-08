@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("GameStore/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {

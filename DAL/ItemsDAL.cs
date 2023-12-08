@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Models;
 using Serilog;
+using System.Collections.Generic;
 using System.Data;
 
 
@@ -16,17 +17,18 @@ namespace DAL
             _configuration = configuration;
         }
 
-        public Byte[] QImage_Item(int iiItemCode,ref string log)
+        public ImageModel QImage_Item(int ItemCode,ref string log)
         {
+            ImageModel image = new ImageModel();
             Byte[] b= null;
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             SqlCommand sqlCmd = new SqlCommand();
             sqlCmd.Connection = connection;
             sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.CommandText = "QImage_Item";
+            sqlCmd.CommandText = "QImageItem";
 
-            SqlParameter p1 = new SqlParameter("@iiItemCode", SqlDbType.Int, 4);
-            p1.Value = iiItemCode;
+            SqlParameter p1 = new SqlParameter("@ItemCode", SqlDbType.Int, 4);
+            p1.Value = ItemCode;
 
             sqlCmd.Parameters.Add(p1);
 
@@ -36,14 +38,23 @@ namespace DAL
             {
                 connection.Open();
                 sqlReader = sqlCmd.ExecuteReader();
-                sqlReader.Read();
-                b = new Byte[sqlReader.GetBytes(0, 0, null, 0, int.MaxValue)];
-                sqlReader.GetBytes(0, 0, b, 0, b.Length);
-                System.IO.MemoryStream strm = new System.IO.MemoryStream(b);
-                strm.Write(b, 0, b.Length);
+                if (sqlReader.HasRows)
+                {
+                    sqlReader.Read();
+                    b = new Byte[sqlReader.GetBytes(0, 0, null, 0, int.MaxValue)];
+                    sqlReader.GetBytes(0, 0, b, 0, b.Length);
+                    System.IO.MemoryStream strm = new System.IO.MemoryStream(b);
+                    strm.Write(b, 0, b.Length);
+
+                    image.ImageFile = b;
+                    image.FileName = sqlReader["FileName"].ToString();
+                    image.fileType = sqlReader["extention"].ToString();
+
+                }
             }
             catch (Exception ex)
             {
+                image = null;
                     log = "An exception has uncured while retrieving the image. Error:  " + ex.Message.ToString();
             }
             finally
@@ -59,7 +70,7 @@ namespace DAL
                 }
             }
             
-            return b;
+            return image;
         }
         public bool DItem(int itemcode, ref string log)
         {
@@ -109,7 +120,67 @@ namespace DAL
             }
             return true;
         }
+        public List<ItemsModel> QAllItems(string ItemName, ref string log)
+        {
+            SqlTransaction sqlTransaction = null;
+            List<ItemsModel> itemlist = new List<ItemsModel>(); 
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
+            try
+            {
 
+                connection.Open();
+                sqlTransaction = connection.BeginTransaction();
+                SqlCommand cmd = connection.CreateCommand();
+                SqlCommand cmd1 = connection.CreateCommand();
+                cmd.Parameters.AddWithValue("@Itemname", ItemName);
+                cmd.CommandText = "QAllItems";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Transaction = sqlTransaction;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        ItemsModel item = new ItemsModel
+                        {
+                            ItemName = dr["ItemName"].ToString(),
+                            ItemDescription = dr["Description"].ToString(),
+                            itemCost = Convert.ToDecimal(dr["Cost"].ToString()),
+                            ItemWholeSale = Convert.ToDecimal(dr["wholesale"].ToString()),
+                            ItemRetail = Convert.ToDecimal(dr["Retail"].ToString()),
+                            fileType = dr["Extention"].ToString(),
+                            FileName = dr["ImageFileName"].ToString(),
+                            Id = Convert.ToInt32(dr["ItemCode"].ToString()),
+                            ImageFile = null,
+                            Make = dr["Make"].ToString(),
+                            Model = dr["Model"].ToString()
+
+                        };
+
+                        itemlist.Add(item);
+
+                    }
+                }
+                dr.Close();
+                sqlTransaction.Commit();
+                connection.Close();
+                connection.Dispose();
+
+            }
+            catch (SqlException ex)
+            {
+                itemlist = null;
+                connection.Close();
+                connection.Dispose();
+                log = "An exception has uncured while reading the items from the database. Error:  " + ex.Message.ToString();
+                if (sqlTransaction != null)
+                {
+                    sqlTransaction.Rollback();
+                }
+                return itemlist;
+            }
+            return itemlist;
+        }
         public int IItem(ItemsModel newItem, ref string log)
         {
             SqlTransaction sqlTransaction = null;
@@ -121,7 +192,7 @@ namespace DAL
                 connection.Open();
                 sqlTransaction = connection.BeginTransaction();
                 SqlCommand cmd = connection.CreateCommand();
-                SqlCommand cmd1 = connection.CreateCommand();
+               
                 cmd.Parameters.AddWithValue("@Name", newItem.ItemName);
                 cmd.Parameters.AddWithValue("@Description", newItem.ItemDescription);
                 cmd.Parameters.AddWithValue("@CostPrice", newItem.itemCost);

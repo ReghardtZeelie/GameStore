@@ -3,17 +3,18 @@ using DAL;
 using Models;
 using GameStore;
 using Serilog;
+using System.Collections.Generic;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("GameStore/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
     {
         private readonly IConfiguration _config;
         private readonly ILogger<ItemController> _logger;
         ItemsDAL itemsDAL;
-        
+
         HelperClass helperClass;
         ValidateTokenClass ValidateToken;
         ModelMapperClass modelMapperClass;
@@ -23,8 +24,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             _config = config;
             _logger = logger;
         }
-      
-        [HttpPost] 
+
+        [HttpPost]
         [Route("AddNewitem")]
         public ActionResult AddNewitem([FromForm] NewItemModel newItem, string token)
         {
@@ -34,8 +35,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             modelMapperClass = new ModelMapperClass();
             ValidateToken = new ValidateTokenClass(_config);
             helperClass = new HelperClass(_config);
-                      
-           
+
+
             var ValidatedToken = ValidateToken.ValidateTWTToken(token, ref log);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
@@ -46,16 +47,16 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 return Unauthorized(ModelState);
             }
 
-           
+
             if (!validateNewItem(newItem, ref log))
             {
                 _logger.LogInformation(log);
                 return BadRequest(log);
             }
 
-            var ImageArray =   helperClass.imagetoByteArray(newItem.file, ref log);
+            var ImageArray = helperClass.imagetoByteArray(newItem.file, ref log);
 
-            if ( ImageArray == null && !string.IsNullOrEmpty(log))
+            if (ImageArray == null && !string.IsNullOrEmpty(log))
             {
                 _logger.LogInformation(log);
                 ModelState.AddModelError("ErrorMessage", log);
@@ -74,7 +75,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             }
             else
             {
-                _logger.LogInformation("New item: "+ newItem .ItemName+ " with item Code: "+ newItemCode.ToString()+ " has been created.");
+                _logger.LogInformation("New item: " + newItem.ItemName + " with item Code: " + newItemCode.ToString() + " has been created.");
                 return Ok("New item: " + newItem.ItemName + " with item Code: " + newItemCode.ToString() + " has been created.");
             }
 
@@ -95,9 +96,9 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 return Unauthorized(ModelState);
             }
 
-            
 
-            if (!itemsDAL.DItem(ItemCode,ref log) && !string.IsNullOrEmpty(log))
+
+            if (!itemsDAL.DItem(ItemCode, ref log) && !string.IsNullOrEmpty(log))
             {
                 _logger.LogInformation(log);
                 ModelState.AddModelError("ErrorMessage", log);
@@ -106,14 +107,14 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             }
             else
             {
-               _logger.LogInformation("Item: " + ItemCode.ToString() + " has been deleted.");
-            return Ok("Item: " + ItemCode.ToString() + " has been deleted.");
+                _logger.LogInformation("Item: " + ItemCode.ToString() + " has been deleted.");
+                return Ok("Item: " + ItemCode.ToString() + " has been deleted.");
             }
 
-           
+
         }
 
-            private bool validateNewItem(NewItemModel newItem, ref string Log)
+        private bool validateNewItem(NewItemModel newItem, ref string Log)
         {
             if (string.IsNullOrEmpty(newItem.ItemName))
             {
@@ -235,6 +236,19 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 }
             }
             return true;
+        }
+
+        [HttpGet]
+        [Route("ImageSearch")]
+        public ImageModel ItemSearch(string token, int ItemCode)
+        {
+            string log = string.Empty;
+            itemsDAL = new ItemsDAL(_config);
+            ImageModel  Image = new ImageModel();
+
+            Image =  itemsDAL.QImage_Item(ItemCode, ref log);
+
+            return Image;
         }
     }
 }
