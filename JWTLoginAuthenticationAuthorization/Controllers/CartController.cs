@@ -1,12 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
-    public class CartController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CartController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpPost]
+        [Route("AddItemsToCart")]
+        public ActionResult AddItemsToCart(CartModel cart, string token)
         {
-            return View();
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("ViewCart")]
+        public ActionResult ViewCart(int UserID, string token)
+        {
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("AddItemsToCart")]
+        public ActionResult AddItemsToCart(int UserID,string itemdesc, string token)
+        {
+            return Ok();
         }
     }
 }
