@@ -14,11 +14,11 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
     {
         private readonly IConfiguration _config;
         private readonly ILogger<ItemController> _logger;
-        ItemsDAL itemsDAL;
+        CartDAL cartDAL;
         HelperClass helperClass;
         ValidateTokenClass ValidateToken;
         ModelMapperClass modelMapperClass;
-
+        int _UserID;
         public CartController(IConfiguration config, ILogger<ItemController> logger)
         {
             _config = config;
@@ -27,17 +27,16 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
         [HttpPost]
         [Route("AddItemsToCart")]
-        public ActionResult AddItemsToCart(CartModel cart, string token)
+        public ActionResult AddItemsToCart(CartModel cart, string UserName, string token)
         {
             ModelState.Clear();
-            int newItemCode = 0;
-            itemsDAL = new ItemsDAL(_config);
-            modelMapperClass = new ModelMapperClass();
+
+            cartDAL = new CartDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
-            helperClass = new HelperClass(_config);
+
             string log = string.Empty;
 
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, ref log);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName, ref log,ref _UserID);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -46,7 +45,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
                 return Unauthorized(ModelState);
             }
-
+            cartDAL.AddItemToCart(cart,  _UserID, ref log);
 
             //if (!validateNewItem(newItem, ref log))
             //{
@@ -54,8 +53,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             //    return BadRequest(log);
             //}
 
-
-            return Ok();
+            _logger.LogInformation(log);
+            return Ok(log);
         }
 
         [HttpGet]
@@ -66,8 +65,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         }
 
         [HttpDelete]
-        [Route("AddItemsToCart")]
-        public ActionResult AddItemsToCart(int UserID,string itemdesc, string token)
+        [Route("RemoveItemsfromCart")]
+        public ActionResult RemoveItemsfromCart(int UserID,string itemdesc, string token)
         {
             return Ok();
         }

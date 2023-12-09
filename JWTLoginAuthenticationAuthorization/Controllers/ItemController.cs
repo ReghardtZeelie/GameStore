@@ -4,6 +4,12 @@ using Models;
 using GameStore;
 using Serilog;
 using System.Collections.Generic;
+using System.Net;
+using Azure.Core;
+using System.Web.Http.Description;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
@@ -19,6 +25,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         ValidateTokenClass ValidateToken;
         ModelMapperClass modelMapperClass;
         string log = string.Empty;
+        int _UserID;
         public ItemController(IConfiguration config, ILogger<ItemController> logger)
         {
             _config = config;
@@ -27,7 +34,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
         [HttpPost]
         [Route("AddNewitem")]
-        public ActionResult AddNewitem([FromForm] NewItemModel newItem, string token)
+        public ActionResult AddNewitem([FromForm] NewItemModel newItem, string UserName, string token)
         {
             ModelState.Clear();
             int newItemCode = 0;
@@ -37,7 +44,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             helperClass = new HelperClass(_config);
 
 
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, ref log);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref _UserID);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -82,11 +89,11 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         }
         [HttpDelete]
         [Route("DeleteItem")]
-        public ActionResult DeleteItem(string token, int ItemCode)
+        public ActionResult DeleteItem(string token, string UserName,int ItemCode)
         {
             itemsDAL = new ItemsDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, ref log);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref _UserID);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -102,7 +109,6 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             {
                 _logger.LogInformation(log);
                 ModelState.AddModelError("ErrorMessage", log);
-
                 return BadRequest(ModelState);
             }
             else
@@ -110,6 +116,79 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 _logger.LogInformation("Item: " + ItemCode.ToString() + " has been deleted.");
                 return Ok("Item: " + ItemCode.ToString() + " has been deleted.");
             }
+
+
+        }
+        [HttpGet]
+        [ResponseType(typeof(ImageModel))]
+        [Route("ViewItemImage")]
+        public ActionResult ViewItemImage(string token, string UserName, int ItemCode)
+        {
+            ModelState.Clear();
+            string log = string.Empty;
+            itemsDAL = new ItemsDAL(_config);
+            ImageModel Image = new ImageModel();
+
+            itemsDAL = new ItemsDAL(_config);
+            ValidateToken = new ValidateTokenClass(_config);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName,ref log, ref _UserID);
+
+            if (ValidatedToken == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+
+            Image = itemsDAL.QImage_Item(ItemCode, ref log);
+
+            if (Image.ImageFile == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return BadRequest(ModelState);
+            }
+
+                return File(Image.ImageFile, @"image/"+Image.fileType);
+               
+           
+        }
+
+        [HttpGet]
+  
+        [Route("SearchItems")]
+        public ActionResult SearchItems(string token,string Username, string Itemname)
+        {
+            ModelState.Clear();
+            string log = string.Empty;
+            itemsDAL = new ItemsDAL(_config);
+            List<ItemsModel> ItemList = new List<ItemsModel>();
+
+            itemsDAL = new ItemsDAL(_config);
+            ValidateToken = new ValidateTokenClass(_config);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, Username, ref log, ref _UserID);
+
+            if (ValidatedToken == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+
+            ItemList = itemsDAL.QAllItems(Itemname, ref log);
+
+            if ((ItemList == null || ItemList.Count() == 0) && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return BadRequest(ModelState);
+            }
+
+            return Ok(ItemList);
 
 
         }
@@ -235,20 +314,15 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                     return false;
                 }
             }
+
+            if (Path.GetExtension(newItem.file.FileName).ToLower() != ".png")
+            {
+                Log = "Only .png image are accepted.";
+                return false;
+            }
             return true;
         }
 
-        [HttpGet]
-        [Route("ImageSearch")]
-        public ImageModel ItemSearch(string token, int ItemCode)
-        {
-            string log = string.Empty;
-            itemsDAL = new ItemsDAL(_config);
-            ImageModel  Image = new ImageModel();
-
-            Image =  itemsDAL.QImage_Item(ItemCode, ref log);
-
-            return Image;
-        }
+       
     }
 }

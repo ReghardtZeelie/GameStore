@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
 
 namespace Models
 {
     public class NewItemModel
     {
-      
+       
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public decimal itemCost { get; set; }

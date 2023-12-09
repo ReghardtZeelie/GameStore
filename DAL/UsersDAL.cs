@@ -40,6 +40,7 @@ namespace DAL
 
                     while (dr.Read())
                     {
+                        user.ID = Convert.ToInt32(dr["uId"]);
                         user.Name = dr["UName"].ToString();
                         user.CartID = Convert.ToInt32(dr["UcartID"]);
                     }
@@ -55,7 +56,7 @@ namespace DAL
             }
             catch(SqlException ex)
             {
-                log = "An exception has uncured while retrieving the login details. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while retrieving the login details. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();
@@ -101,7 +102,7 @@ namespace DAL
             {
                 connection.Close();
                 connection.Dispose();
-                log = "An exception has uncured while adding the user to the database. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while adding the user to the database. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();

@@ -18,7 +18,7 @@ namespace DAL
         {
             _configuration = configuration;
         }
-        public void IItem(CartModel Cart, ref string log)
+        public bool AddItemToCart(CartModel Cart,int UserID, ref string log)
         {
             SqlTransaction sqlTransaction = null;
             int CartID = 0;
@@ -30,8 +30,8 @@ namespace DAL
                 sqlTransaction = connection.BeginTransaction();
                 SqlCommand cmd = connection.CreateCommand();
 
-                cmd.Parameters.AddWithValue("@UserID", Cart.UserID);
-                cmd.CommandText = "IItem";
+                cmd.Parameters.AddWithValue("@UserID", UserID);
+                cmd.CommandText = "ICart";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Transaction = sqlTransaction;
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -42,9 +42,18 @@ namespace DAL
                         CartID = Convert.ToInt32(dr["CartID"].ToString());
                     }
                 }
+                dr.Close();
+                sqlTransaction.Commit();
 
+                
+                cmd.Dispose();
+                //connection.Close();
+              
 
-
+               // connection.Open();
+                sqlTransaction = connection.BeginTransaction();
+                 cmd = connection.CreateCommand();
+                cmd.Transaction = sqlTransaction;
                 foreach (var item in Cart.cartItems)
                 {
                     cmd.Parameters.AddWithValue("@CartID", CartID);
@@ -67,20 +76,20 @@ namespace DAL
 
                 dr.Close();
                 sqlTransaction.Commit();
-                connection.Close();
-                connection.Dispose();
-                
+               
             }
             catch (SqlException ex)
             {
                 connection.Close();
                 connection.Dispose();
-                log = "An exception has uncured while adding the item to the database. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while adding the item to the database. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();
                 }
+                return false;
             }
+            return true;
         }
     }
 }

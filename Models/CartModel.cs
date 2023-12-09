@@ -8,6 +8,8 @@ namespace Models
         
         [System.Text.Json.Serialization.JsonIgnore]
         public int CartId { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
         public int UserID { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]

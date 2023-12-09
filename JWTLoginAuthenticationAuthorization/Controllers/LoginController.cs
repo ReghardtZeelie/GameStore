@@ -35,7 +35,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             authenticateUserLogin = new AuthenticateClass(_config);
             generateJWTToken = new GenerateJWTTokenClass(_config);
             var user = authenticateUserLogin.Authenticate(User, ref log);
-            if (user == null && !string.IsNullOrEmpty(log))
+            if (user == null && !string.IsNullOrEmpty(log)) 
             {
                 ModelState.AddModelError("ErrorMessage", log);
 

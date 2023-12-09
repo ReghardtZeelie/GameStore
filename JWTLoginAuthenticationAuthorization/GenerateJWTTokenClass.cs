@@ -22,8 +22,9 @@ namespace JWTLoginAuthenticationAuthorization
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.NameIdentifier,user.Name),
-                new Claim(ClaimTypes.DateOfBirth,user.Age.ToString())
+                new Claim(ClaimTypes.Name,user.Name),
+                new Claim(ClaimTypes.DateOfBirth,user.Age.ToString()),
+                new Claim(ClaimTypes.NameIdentifier,user.ID.ToString())
             };
                  token = new JwtSecurityToken(_config["Jwt:Issuer"],
                     _config["Jwt:Audience"],
@@ -34,7 +35,7 @@ namespace JWTLoginAuthenticationAuthorization
             }
             catch (Exception ex)
             {
-                Log = "An exception has uncured while generating the authentication token. Error: " + ex.Message.ToString()+"";
+                Log = "An exception has occurred while generating the authentication token. Error: " + ex.Message.ToString()+"";
                     return null;
             }
 

@@ -22,46 +22,45 @@ namespace DAL
             ImageModel image = new ImageModel();
             Byte[] b= null;
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
-            SqlCommand sqlCmd = new SqlCommand();
-            sqlCmd.Connection = connection;
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.CommandText = "QImageItem";
-
-            SqlParameter p1 = new SqlParameter("@ItemCode", SqlDbType.Int, 4);
-            p1.Value = ItemCode;
-
-            sqlCmd.Parameters.Add(p1);
-
-            SqlDataReader sqlReader = null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "QImageItem";
+            cmd.Parameters.AddWithValue("@ItemCode", ItemCode);
+            SqlDataReader dr = null;
 
             try
             {
                 connection.Open();
-                sqlReader = sqlCmd.ExecuteReader();
-                if (sqlReader.HasRows)
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows)
                 {
-                    sqlReader.Read();
-                    b = new Byte[sqlReader.GetBytes(0, 0, null, 0, int.MaxValue)];
-                    sqlReader.GetBytes(0, 0, b, 0, b.Length);
+                    dr.Read();
+                    b = new Byte[dr.GetBytes(0, 0, null, 0, int.MaxValue)];
+                    dr.GetBytes(0, 0, b, 0, b.Length);
                     System.IO.MemoryStream strm = new System.IO.MemoryStream(b);
                     strm.Write(b, 0, b.Length);
 
                     image.ImageFile = b;
-                    image.FileName = sqlReader["FileName"].ToString();
-                    image.fileType = sqlReader["extention"].ToString();
+                    image.FileName = dr["FileName"].ToString();
+                    image.fileType = dr["extention"].ToString();
 
+                }
+                else
+                {
+                    log = "Item with item code: " + ItemCode.ToString() + " does not exist.";
                 }
             }
             catch (Exception ex)
             {
                 image = null;
-                    log = "An exception has uncured while retrieving the image. Error:  " + ex.Message.ToString();
+                    log = "An exception has occurred while retrieving the image. Error:  " + ex.Message.ToString();
             }
             finally
             {
-                if (!sqlReader.IsClosed)
+                if (!dr.IsClosed)
                 {
-                    sqlReader.Close();
+                    dr.Close();
                 }
 
                 if (connection.State != ConnectionState.Closed)
@@ -101,6 +100,10 @@ namespace DAL
                         }
                     }
                 }
+                else
+                {
+                    log = "Item with item code: " + itemcode.ToString() + " does not exist.";
+                }
                 dr.Close();
                 sqlTransaction.Commit();
                 connection.Close();
@@ -111,7 +114,7 @@ namespace DAL
             {
                 connection.Close();
                 connection.Dispose();
-                log = "An exception has uncured while adding the item to the database. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while adding the item to the database. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();
@@ -161,6 +164,10 @@ namespace DAL
 
                     }
                 }
+                else 
+                {
+                    log = "item with name: " + ItemName + " could not be found.";
+                }
                 dr.Close();
                 sqlTransaction.Commit();
                 connection.Close();
@@ -172,7 +179,7 @@ namespace DAL
                 itemlist = null;
                 connection.Close();
                 connection.Dispose();
-                log = "An exception has uncured while reading the items from the database. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while reading the items from the database. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();
@@ -232,7 +239,7 @@ namespace DAL
             {
                 connection.Close();
                 connection.Dispose();
-                log = "An exception has uncured while adding the item to the database. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while adding the item to the database. Error:  " + ex.Message.ToString();
                 if (sqlTransaction != null)
                 {
                     sqlTransaction.Rollback();
