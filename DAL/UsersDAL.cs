@@ -41,9 +41,17 @@ namespace DAL
 
                     while (dr.Read())
                     {
-                        user.ID = Convert.ToInt32(dr["uId"]);
-                        user.Name = dr["UName"].ToString();
-                        user.CartID = Convert.ToInt32(dr["cartID"]);
+                        if (Convert.ToBoolean(dr["ULogin"].ToString()) == false)
+                        {
+                            user.ID = Convert.ToInt32(dr["uId"]);
+                            user.Name = dr["UName"].ToString();
+                            user.CartID = Convert.ToInt32(dr["cartID"]);
+                        }
+                        else
+                        {
+                            log = "User: " + UserName + " is already logged in.";
+                            user = null;
+                        }
                     }
                 }
                 else
@@ -105,6 +113,66 @@ namespace DAL
 
 
            
+        }
+        public bool LogoutUser(UsersModel newuser, ref string log)
+        {
+            SqlTransaction sqlTransaction = null;
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
+            try
+            {
+                UsersModel newUser = new UsersModel();
+
+                connection.Open();
+                sqlTransaction = connection.BeginTransaction();
+                SqlCommand cmd = connection.CreateCommand();
+                SqlCommand cmd1 = connection.CreateCommand();
+                cmd.Parameters.AddWithValue("@UserID", newuser.ID);
+              
+                cmd.CommandText = "LogoutUser";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Transaction = sqlTransaction;
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        if (dr["status"].ToString() == "Loggedout")
+                        {
+                            dr.Close();
+                            sqlTransaction.Commit();
+                            connection.Close();
+                            connection.Dispose();
+                            log = "User logged out.";
+                            return true;
+                        }
+                        else
+                        {
+                            dr.Close();
+                            sqlTransaction.Commit();
+                            connection.Close();
+                            connection.Dispose();
+                            log = "User not logged in.";
+                            return false;
+                        }
+                    }
+                }
+                dr.Close();
+                sqlTransaction.Commit();
+                connection.Close();
+                connection.Dispose();
+                
+            }
+            catch (SqlException ex)
+            {
+                connection.Close();
+                connection.Dispose();
+                log = "An exception has occurred while logging out the user. Error:  " + ex.Message.ToString();
+                return false;
+            }
+
+            return false;
+
+
         }
 
         public bool DUser(UsersModel newuser,int AdminID, ref string  log)

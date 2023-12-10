@@ -3,6 +3,9 @@ using Models;
 
 using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
+using Serilog;
+using GameStore;
+using DAL;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
@@ -15,6 +18,9 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         private readonly ILogger<LoginController> _logger;
         GenerateJWTTokenClass generateJWTToken;
         AuthenticateClass authenticateUserLogin;
+        HelperClass helperClass;
+        ValidateTokenClass ValidateToken;
+        UsersModel usersModel = new UsersModel();
         public LoginController(IConfiguration config, ILogger<LoginController> logger)
         {
             _config = config;
@@ -34,17 +40,17 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             }
             authenticateUserLogin = new AuthenticateClass(_config);
             generateJWTToken = new GenerateJWTTokenClass(_config);
-            var user = authenticateUserLogin.Authenticate(User, ref log);
-            if (user == null && !string.IsNullOrEmpty(log)) 
+            var usersModel = authenticateUserLogin.Authenticate(User, ref log);
+            if (usersModel == null && !string.IsNullOrEmpty(log)) 
             {
                 ModelState.AddModelError("ErrorMessage", log);
 
                 return BadRequest(ModelState);
                
             }
-            if (user != null)
+            if (usersModel != null)
             {
-                var token = generateJWTToken.GenerateToken(user, ref log);
+                var token = generateJWTToken.GenerateToken(usersModel, ref log);
 
                 if (token == null && !string.IsNullOrEmpty(log))
                 {
@@ -54,13 +60,45 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
                 }
 
-                _logger.LogInformation("New token generated for user: " + user.Name);
+                _logger.LogInformation("New token generated for user: " + usersModel.Name);
 
                 return Ok(token);
             }
 
             _logger.LogInformation("Authentication failed for: "+ User.Name + "");
             return Unauthorized("Authentication failed for: " + User.Name + "");
+        }
+        [HttpPost]
+        [Route("Logout")]
+        public ActionResult Logout(string UserName, string token)
+        {
+            UsersDAL usersDAL = new UsersDAL(_config);
+            string log = string.Empty;
+            ValidateToken = new ValidateTokenClass(_config);
+            helperClass = new HelperClass(_config);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName, ref log, ref usersModel);
+
+            if (ValidatedToken == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+            var status = usersDAL.LogoutUser(usersModel, ref log);
+            if (status == true)
+            {
+                _logger.LogInformation(log);
+
+                return Ok(log);
+            }
+            else
+            {
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+
         }
 
         private bool validateUserLogin(LoginModel User, ref string Log)

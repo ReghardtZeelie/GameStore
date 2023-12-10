@@ -35,7 +35,7 @@ namespace JWTLoginAuthenticationAuthorization
                     var tokenHandler = new JwtSecurityTokenHandler();
                     tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
                     jwtToken = (JwtSecurityToken)validatedToken;
-                    
+                   
                   var TokenUserName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
                     var TokenUserID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
                     var TokenCartID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.SerialNumber).Value;
