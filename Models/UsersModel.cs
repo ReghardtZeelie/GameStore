@@ -7,7 +7,7 @@
 
         public string Password { get; set; }
 
-        public DateTime Age { get; set; }
+        public DateTime DOB { get; set; }
         public int CartID { get; set; }
 
     }

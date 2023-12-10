@@ -1,5 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Models;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace JWTLoginAuthenticationAuthorization
@@ -11,9 +13,9 @@ namespace JWTLoginAuthenticationAuthorization
         {
             _config = config;
         }
-        public JwtSecurityToken ValidateTWTToken(string token,ref string Log)
+        public JwtSecurityToken ValidateTWTToken(string token,string UserName,ref string Log,ref UsersModel user)
         {
-            JwtSecurityToken jwt1;
+            JwtSecurityToken jwtToken;
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -32,9 +34,37 @@ namespace JWTLoginAuthenticationAuthorization
                 {
                     var tokenHandler = new JwtSecurityTokenHandler();
                     tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                    jwt1 = (JwtSecurityToken)validatedToken;
+                    jwtToken = (JwtSecurityToken)validatedToken;
+                   
+                  var TokenUserName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+                    var TokenUserID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                    var TokenCartID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.SerialNumber).Value;
+                    if (TokenUserID == null)
+                    {
+                        
+                            Log = "Token Authentication failed.";
+                        return null;
+                    }
+                    else
+                    {
+                        user.ID = Convert.ToInt32(TokenUserID);
+                    }
+                    if (TokenUserName != null)
+                    {
+                        if (UserName != TokenUserName)
+                        {
+                            Log = "Token Authentication failed.";
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
 
-                    return jwt1;
+                  user.CartID = Convert.ToInt32(TokenCartID);
+
+                    return jwtToken;
                 }
                 catch (Exception ex)
                 {

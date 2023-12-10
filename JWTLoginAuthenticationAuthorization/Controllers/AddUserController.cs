@@ -6,7 +6,7 @@ using Models;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("User/[controller]")]
     [ApiController]
 
     public class AddUserController : ControllerBase
@@ -135,16 +135,17 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 Log = "Passwords do not match.";
                 return false;
             }
-            if (string.IsNullOrEmpty(NewUser.Age.ToString()))
+            if (string.IsNullOrEmpty(NewUser.DOB.ToString()))
             {
                 Log = "Please enter a valid age.";
                 return false;
             }
             else 
             {
+
                 try
                 {
-                    DateTime test = DateTime.Parse(NewUser.Age.ToString());
+                    DateTime test = DateTime.Parse(NewUser.DOB.ToString());
                 }
                 catch
                 {
@@ -153,9 +154,14 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
                 }
             }
 
-            if (DateTime.Now.Year - NewUser.Age.Year < 18) 
+            if (DateTime.Now.Year - NewUser.DOB.Year < 18) 
             {
                 Log = "Users must be 18 yars or older.";
+                return false;
+            }
+            if ( NewUser.DOB > DateTime.Now)
+            {
+                Log = "Date of birth can not be in the future.";
                 return false;
             }
             return true;

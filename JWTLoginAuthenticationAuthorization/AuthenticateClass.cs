@@ -31,7 +31,7 @@ namespace JWTLoginAuthenticationAuthorization
             }
             catch (Exception ex)
             {
-                Log = "An exception has uncured while authenticating the user. Error: " + ex.Message.ToString() + "";
+                Log = "An exception has occurred while authenticating the user. Error: " + ex.Message.ToString() + "";
                 return null;
             }
         }
