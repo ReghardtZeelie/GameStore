@@ -6,7 +6,7 @@ using Models;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("User/[controller]")]
     [ApiController]
 
     public class AddUserController : ControllerBase
