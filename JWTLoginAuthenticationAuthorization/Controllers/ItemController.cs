@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DAL;
 using Models;
 using GameStore;
 using Serilog;
@@ -10,6 +9,7 @@ using System.Web.Http.Description;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using DAL;
 
 namespace JWTLoginAuthenticationAuthorization.Controllers
 {
@@ -25,7 +25,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         ValidateTokenClass ValidateToken;
         ModelMapperClass modelMapperClass;
         string log = string.Empty;
-        int _UserID;
+        UsersModel usersModel = new UsersModel();
+       
         public ItemController(IConfiguration config, ILogger<ItemController> logger)
         {
             _config = config;
@@ -44,7 +45,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
             helperClass = new HelperClass(_config);
 
 
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref _UserID);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref usersModel);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -93,7 +94,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         {
             itemsDAL = new ItemsDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref _UserID);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token,UserName, ref log, ref usersModel);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -131,7 +132,7 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
             itemsDAL = new ItemsDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName,ref log, ref _UserID);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName,ref log, ref usersModel);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -163,12 +164,11 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         {
             ModelState.Clear();
             string log = string.Empty;
-            itemsDAL = new ItemsDAL(_config);
             List<ItemsModel> ItemList = new List<ItemsModel>();
 
             itemsDAL = new ItemsDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, Username, ref log, ref _UserID);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, Username, ref log, ref usersModel);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {

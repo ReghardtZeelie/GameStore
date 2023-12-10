@@ -18,7 +18,8 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         HelperClass helperClass;
         ValidateTokenClass ValidateToken;
         ModelMapperClass modelMapperClass;
-        int _UserID;
+        UsersModel usersModel = new UsersModel();
+        
         public CartController(IConfiguration config, ILogger<ItemController> logger)
         {
             _config = config;
@@ -30,13 +31,13 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
         public ActionResult AddItemsToCart(CartModel cart, string UserName, string token)
         {
             ModelState.Clear();
-
+            
             cartDAL = new CartDAL(_config);
             ValidateToken = new ValidateTokenClass(_config);
 
             string log = string.Empty;
 
-            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName, ref log,ref _UserID);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName, ref log,ref usersModel);
 
             if (ValidatedToken == null && !string.IsNullOrEmpty(log))
             {
@@ -45,13 +46,14 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
                 return Unauthorized(ModelState);
             }
-            cartDAL.AddItemToCart(cart,  _UserID, ref log);
+            if (!validateItemAdd(cart, ref log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
 
-            //if (!validateNewItem(newItem, ref log))
-            //{
-            //    _logger.LogInformation(log);
-            //    return BadRequest(log);
-            //}
+                return Unauthorized(ModelState);
+            }
+            cartDAL.AddItemToCart(cart, usersModel.ID, ref log);
 
             _logger.LogInformation(log);
             return Ok(log);
@@ -59,137 +61,93 @@ namespace JWTLoginAuthenticationAuthorization.Controllers
 
         [HttpGet]
         [Route("ViewCart")]
-        public ActionResult ViewCart(int UserID, string token)
+        public ActionResult ViewCart(string token, string Username)
         {
+            ModelState.Clear();
+            string log = string.Empty;
+            cartDAL = new CartDAL(_config);
+            List<ViewCartModel> ItemList = new List<ViewCartModel>();
+
+
+            ValidateToken = new ValidateTokenClass(_config);
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, Username, ref log, ref usersModel);
+
+            if (ValidatedToken == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+
+            ItemList = cartDAL.QCart(usersModel, ref log);
+
+            if ((ItemList == null || ItemList.Count() == 0) && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return BadRequest(ModelState);
+            }
+
+            return Ok(ItemList);
             return Ok();
         }
 
         [HttpDelete]
         [Route("RemoveItemsfromCart")]
-        public ActionResult RemoveItemsfromCart(int UserID,string itemdesc, string token)
+        public ActionResult RemoveItemsfromCart(CartModel cart, string UserName, string token)
         {
-            return Ok();
+            ModelState.Clear();
+
+            cartDAL = new CartDAL(_config);
+            ValidateToken = new ValidateTokenClass(_config);
+
+            string log = string.Empty;
+
+            var ValidatedToken = ValidateToken.ValidateTWTToken(token, UserName, ref log, ref usersModel);
+
+            if (ValidatedToken == null && !string.IsNullOrEmpty(log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+            if (!validateItemRemove(cart, ref log))
+            {
+                _logger.LogInformation(log);
+                ModelState.AddModelError("ErrorMessage", log);
+
+                return Unauthorized(ModelState);
+            }
+
+            cartDAL.RemoveItemFromCart(cart, usersModel, ref log);
+
+
+            _logger.LogInformation(log);
+            return Ok(log);
+            
         }
 
-        private bool validateAddItem(NewItemModel newItem, ref string Log)
+        private bool validateItemRemove(CartModel cart, ref string Log)
         {
-            if (string.IsNullOrEmpty(newItem.ItemName))
+            foreach (var item in cart.cartItems)
             {
-                Log = "Please enter an valid item name.";
-                return false;
-            }
-            else
-            {
-                if (newItem.ItemName.Length > 30)
+                if (item.Qty <= 0)
                 {
-                    Log = "Item name can not be more than 30 alpha numeric characters";
-                    return false;
+                    Log = "Please enter an valid positive quantity to remove.";
                 }
             }
-            if (string.IsNullOrEmpty(newItem.ItemDescription))
+            return true;
+        }
+        private bool validateItemAdd(CartModel cart, ref string Log)
+        {
+            foreach (var item in cart.cartItems)
             {
-                Log = "Please enter an valid item description.";
-                return false;
-            }
-            else
-            {
-                if (newItem.ItemDescription.Length > 500)
+                if (item.Qty <= 0)
                 {
-                    Log = "Item description can not be more than 500 alpha numeric characters";
-                    return false;
-                }
-            }
-            if (string.IsNullOrEmpty(newItem.itemCost.ToString()))
-            {
-                Log = "Please enter item cost.";
-                return false;
-            }
-            else
-            {
-                if (newItem.itemCost <= 0m)
-                {
-                    Log = "cost can not be less than zero or zero";
-                    return false;
-                }
-                try
-                {
-                    decimal test = decimal.Parse(newItem.itemCost.ToString());
-                }
-                catch
-                {
-                    Log = "Please enter a valid cost.";
-                    return false;
-                }
-            }
-            if (string.IsNullOrEmpty(newItem.ItemWholeSale.ToString()))
-            {
-                Log = "Please enter item wholesale.";
-                return false;
-            }
-            else
-            {
-                if (newItem.ItemWholeSale <= 0m)
-                {
-                    Log = "wholesale can less than zero or zero";
-                    return false;
-                }
-
-                try
-                {
-                    decimal test = decimal.Parse(newItem.ItemWholeSale.ToString());
-                }
-                catch
-                {
-                    Log = "Please enter a valid wholesale.";
-                    return false;
-                }
-            }
-            if (string.IsNullOrEmpty(newItem.ItemRetail.ToString()))
-            {
-                Log = "Please enter item retail.";
-                return false;
-            }
-            else
-            {
-                if (newItem.ItemRetail <= 0m)
-                {
-                    Log = "retail can less than zero or zero";
-                    return false;
-                }
-                try
-                {
-                    decimal test = decimal.Parse(newItem.ItemRetail.ToString());
-                }
-                catch
-                {
-                    Log = "Please enter a valid retail.";
-                    return false;
-                }
-            }
-            if (string.IsNullOrEmpty(newItem.Make))
-            {
-                Log = "Please enter an valid item make.";
-                return false;
-            }
-            else
-            {
-                if (newItem.Make.Length > 30)
-                {
-                    Log = "Item make can not be more than 30 alpha numeric characters";
-                    return false;
-                }
-            }
-            if (string.IsNullOrEmpty(newItem.Model))
-            {
-                Log = "Please enter an valid item model.";
-                return false;
-            }
-            else
-            {
-                if (newItem.Model.Length > 30)
-                {
-                    Log = "Item model can not be more than 30 alpha numeric characters";
-                    return false;
+                    Log = "Please enter an valid positive quantity to add.";
                 }
             }
             return true;

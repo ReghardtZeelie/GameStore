@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -12,7 +13,7 @@ namespace JWTLoginAuthenticationAuthorization
         {
             _config = config;
         }
-        public JwtSecurityToken ValidateTWTToken(string token,string UserName,ref string Log,ref int userID)
+        public JwtSecurityToken ValidateTWTToken(string token,string UserName,ref string Log,ref UsersModel user)
         {
             JwtSecurityToken jwtToken;
             var validationParameters = new TokenValidationParameters
@@ -34,9 +35,10 @@ namespace JWTLoginAuthenticationAuthorization
                     var tokenHandler = new JwtSecurityTokenHandler();
                     tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
                     jwtToken = (JwtSecurityToken)validatedToken;
+                    
                   var TokenUserName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
                     var TokenUserID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
+                    var TokenCartID = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.SerialNumber).Value;
                     if (TokenUserID == null)
                     {
                         
@@ -45,7 +47,7 @@ namespace JWTLoginAuthenticationAuthorization
                     }
                     else
                     {
-                        userID = Convert.ToInt32(TokenUserID);
+                        user.ID = Convert.ToInt32(TokenUserID);
                     }
                     if (TokenUserName != null)
                     {
@@ -59,6 +61,8 @@ namespace JWTLoginAuthenticationAuthorization
                     {
                         return null;
                     }
+
+                  user.CartID = Convert.ToInt32(TokenCartID);
 
                     return jwtToken;
                 }

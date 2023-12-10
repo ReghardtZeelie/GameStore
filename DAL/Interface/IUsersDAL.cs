@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DAL.Interface
 {
-   public interface  IUsersDAL  
+    public interface IUsersDAL
     {
 
         UsersModel QUserLogin(string UserName, string Password, ref string log);

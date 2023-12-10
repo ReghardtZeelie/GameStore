@@ -13,6 +13,6 @@ namespace Models
 
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public DateTime Age { get; set; }
+        public DateTime DOB { get; set; }
     }
 }

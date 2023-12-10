@@ -23,8 +23,9 @@ namespace JWTLoginAuthenticationAuthorization
                 var claims = new[]
                 {
                 new Claim(ClaimTypes.Name,user.Name),
-                new Claim(ClaimTypes.DateOfBirth,user.Age.ToString()),
-                new Claim(ClaimTypes.NameIdentifier,user.ID.ToString())
+                new Claim(ClaimTypes.DateOfBirth,user.DOB.ToString()),
+                new Claim(ClaimTypes.NameIdentifier,user.ID.ToString()),
+                new Claim(ClaimTypes.SerialNumber,user.CartID.ToString())
             };
                  token = new JwtSecurityToken(_config["Jwt:Issuer"],
                     _config["Jwt:Audience"],

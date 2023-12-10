@@ -3,7 +3,8 @@
 using Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-
+using Serilog;
+using DAL.Interface;
 
 namespace DAL
 {
@@ -42,7 +43,7 @@ namespace DAL
                     {
                         user.ID = Convert.ToInt32(dr["uId"]);
                         user.Name = dr["UName"].ToString();
-                        user.CartID = Convert.ToInt32(dr["UcartID"]);
+                        user.CartID = Convert.ToInt32(dr["cartID"]);
                     }
                 }
                 else
@@ -57,11 +58,6 @@ namespace DAL
             catch(SqlException ex)
             {
                 log = "An exception has occurred while retrieving the login details. Error:  " + ex.Message.ToString();
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
-
             }
             return user;
         }
@@ -80,7 +76,7 @@ namespace DAL
                 SqlCommand cmd1 = connection.CreateCommand();
                 cmd.Parameters.AddWithValue("@Name", newuser.Name);
                 cmd.Parameters.AddWithValue("@Password", newuser.Password);
-                cmd.Parameters.AddWithValue("@Age", newuser.Age);
+                cmd.Parameters.AddWithValue("@Age", newuser.DOB);
                 cmd.CommandText = "IUser";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Transaction = sqlTransaction;
@@ -103,10 +99,6 @@ namespace DAL
                 connection.Close();
                 connection.Dispose();
                 log = "An exception has occurred while adding the user to the database. Error:  " + ex.Message.ToString();
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
                 return null;
             }
 
@@ -115,14 +107,14 @@ namespace DAL
            
         }
 
-        public bool DUser(UsersModel newuser,int AdminID)
+        public bool DUser(UsersModel newuser,int AdminID, ref string  log)
         {
             SqlTransaction sqlTransaction = null;
-
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             try
             {
 
-                SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
+               
                 connection.Open();
                 sqlTransaction = connection.BeginTransaction();
                 SqlCommand cmd = connection.CreateCommand();
@@ -137,12 +129,12 @@ namespace DAL
                 connection.Dispose();
 
             }
-            catch
+            catch(SqlException ex)
             {
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
+                connection.Close();
+                connection.Dispose();
+                log = "An exception has occurred while deleting the user from the database. Error:  " + ex.Message.ToString();
+               
                 return false;
             }
 

@@ -17,10 +17,10 @@ namespace DAL
             _configuration = configuration;
         }
 
-        public ImageModel QImage_Item(int ItemCode,ref string log)
+        public ImageModel QImage_Item(int ItemCode, ref string log)
         {
             ImageModel image = new ImageModel();
-            Byte[] b= null;
+            byte[] b = null;
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
@@ -36,9 +36,9 @@ namespace DAL
                 if (dr.HasRows)
                 {
                     dr.Read();
-                    b = new Byte[dr.GetBytes(0, 0, null, 0, int.MaxValue)];
+                    b = new byte[dr.GetBytes(0, 0, null, 0, int.MaxValue)];
                     dr.GetBytes(0, 0, b, 0, b.Length);
-                    System.IO.MemoryStream strm = new System.IO.MemoryStream(b);
+                    MemoryStream strm = new MemoryStream(b);
                     strm.Write(b, 0, b.Length);
 
                     image.ImageFile = b;
@@ -54,7 +54,7 @@ namespace DAL
             catch (Exception ex)
             {
                 image = null;
-                    log = "An exception has occurred while retrieving the image. Error:  " + ex.Message.ToString();
+                log = "An exception has occurred while retrieving the image. Error:  " + ex.Message.ToString();
             }
             finally
             {
@@ -68,13 +68,13 @@ namespace DAL
                     connection.Close();
                 }
             }
-            
+
             return image;
         }
         public bool DItem(int itemcode, ref string log)
         {
             SqlTransaction sqlTransaction = null;
-           
+
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             try
             {
@@ -82,10 +82,10 @@ namespace DAL
                 connection.Open();
                 sqlTransaction = connection.BeginTransaction();
                 SqlCommand cmd = connection.CreateCommand();
-                SqlCommand cmd1 = connection.CreateCommand();
+               
                 cmd.Parameters.AddWithValue("@itemCode", itemcode);
                 cmd.CommandText = "DItem";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Transaction = sqlTransaction;
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.HasRows)
@@ -108,17 +108,13 @@ namespace DAL
                 sqlTransaction.Commit();
                 connection.Close();
                 connection.Dispose();
-                
+
             }
             catch (SqlException ex)
             {
                 connection.Close();
                 connection.Dispose();
                 log = "An exception has occurred while adding the item to the database. Error:  " + ex.Message.ToString();
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
                 return false;
             }
             return true;
@@ -126,7 +122,7 @@ namespace DAL
         public List<ItemsModel> QAllItems(string ItemName, ref string log)
         {
             SqlTransaction sqlTransaction = null;
-            List<ItemsModel> itemlist = new List<ItemsModel>(); 
+            List<ItemsModel> itemlist = new List<ItemsModel>();
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             try
             {
@@ -137,7 +133,7 @@ namespace DAL
                 SqlCommand cmd1 = connection.CreateCommand();
                 cmd.Parameters.AddWithValue("@Itemname", ItemName);
                 cmd.CommandText = "QAllItems";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Transaction = sqlTransaction;
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.HasRows)
@@ -164,7 +160,7 @@ namespace DAL
 
                     }
                 }
-                else 
+                else
                 {
                     log = "item with name: " + ItemName + " could not be found.";
                 }
@@ -180,10 +176,6 @@ namespace DAL
                 connection.Close();
                 connection.Dispose();
                 log = "An exception has occurred while reading the items from the database. Error:  " + ex.Message.ToString();
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
                 return itemlist;
             }
             return itemlist;
@@ -195,11 +187,11 @@ namespace DAL
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("GameStoreSQL"));
             try
             {
-                
+
                 connection.Open();
                 sqlTransaction = connection.BeginTransaction();
                 SqlCommand cmd = connection.CreateCommand();
-               
+
                 cmd.Parameters.AddWithValue("@Name", newItem.ItemName);
                 cmd.Parameters.AddWithValue("@Description", newItem.ItemDescription);
                 cmd.Parameters.AddWithValue("@CostPrice", newItem.itemCost);
@@ -211,7 +203,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Make", newItem.Make);
                 cmd.Parameters.AddWithValue("@Model", newItem.Model);
                 cmd.CommandText = "IItem";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Transaction = sqlTransaction;
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.HasRows)
@@ -225,7 +217,7 @@ namespace DAL
                         }
                         else
                         {
-                            log = "Item with name: "+ newItem.ItemName + " already exist in the database. Please try use another name.";
+                            log = "Item with name: " + newItem.ItemName + " already exist in the database. Please try use another name.";
                         }
                     }
                 }
@@ -240,10 +232,6 @@ namespace DAL
                 connection.Close();
                 connection.Dispose();
                 log = "An exception has occurred while adding the item to the database. Error:  " + ex.Message.ToString();
-                if (sqlTransaction != null)
-                {
-                    sqlTransaction.Rollback();
-                }
                 return newItemID;
             }
         }
