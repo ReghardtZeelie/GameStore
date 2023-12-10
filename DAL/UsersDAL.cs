@@ -3,12 +3,11 @@
 using Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Serilog;
-using DAL.Interface;
+
 
 namespace DAL
 {
-    public class UsersDAL : IUsersDAL
+    public class UsersDAL 
     {
 
         private readonly IConfiguration _configuration;
